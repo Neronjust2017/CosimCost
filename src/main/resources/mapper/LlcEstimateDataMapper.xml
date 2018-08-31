@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LlcEstimateDataMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LlcEstimateData">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="MAXRANGE" jdbcType="DECIMAL" property="maxrange" />
+    <result column="MAXHEIGHT" jdbcType="DECIMAL" property="maxheight" />
+    <result column="MAXSPEED" jdbcType="DECIMAL" property="maxspeed" />
+    <result column="MASS" jdbcType="DECIMAL" property="mass" />
+    <result column="MAXLOAD" jdbcType="DECIMAL" property="maxload" />
+    <result column="MLENGTH" jdbcType="DECIMAL" property="mlength" />
+    <result column="MDIAMETER" jdbcType="DECIMAL" property="mdiameter" />
+    <result column="MWINGLENGTH" jdbcType="DECIMAL" property="mwinglength" />
+    <result column="MKILLPOSIBILITY" jdbcType="DECIMAL" property="mkillposibility" />
+    <result column="YEAR" jdbcType="VARCHAR" property="year" />
+    <result column="CPI" jdbcType="VARCHAR" property="cpi" />
+    <result column="NET_EXP_SAME" jdbcType="DECIMAL" property="netExpSame" />
+    <result column="NET_EXP_DIFF" jdbcType="DECIMAL" property="netExpDiff" />
+    <result column="COUNTRY" jdbcType="VARCHAR" property="country" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, MAXRANGE, MAXHEIGHT, MAXSPEED, MASS, MAXLOAD, MLENGTH, MDIAMETER, MWINGLENGTH, 
+    MKILLPOSIBILITY, YEAR, CPI, NET_EXP_SAME, NET_EXP_DIFF, COUNTRY, NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LlcEstimateDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from llc_estimate_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from llc_estimate_data
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from llc_estimate_data
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.LlcEstimateDataExample">
+    delete from llc_estimate_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LlcEstimateData">
+    insert into llc_estimate_data (ID, MAXRANGE, MAXHEIGHT, 
+      MAXSPEED, MASS, MAXLOAD, 
+      MLENGTH, MDIAMETER, MWINGLENGTH, 
+      MKILLPOSIBILITY, YEAR, CPI, 
+      NET_EXP_SAME, NET_EXP_DIFF, COUNTRY, 
+      NAME)
+    values (#{id,jdbcType=DECIMAL}, #{maxrange,jdbcType=DECIMAL}, #{maxheight,jdbcType=DECIMAL}, 
+      #{maxspeed,jdbcType=DECIMAL}, #{mass,jdbcType=DECIMAL}, #{maxload,jdbcType=DECIMAL}, 
+      #{mlength,jdbcType=DECIMAL}, #{mdiameter,jdbcType=DECIMAL}, #{mwinglength,jdbcType=DECIMAL}, 
+      #{mkillposibility,jdbcType=DECIMAL}, #{year,jdbcType=VARCHAR}, #{cpi,jdbcType=VARCHAR}, 
+      #{netExpSame,jdbcType=DECIMAL}, #{netExpDiff,jdbcType=DECIMAL}, #{country,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LlcEstimateData">
+    insert into llc_estimate_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="maxrange != null">
+        MAXRANGE,
+      </if>
+      <if test="maxheight != null">
+        MAXHEIGHT,
+      </if>
+      <if test="maxspeed != null">
+        MAXSPEED,
+      </if>
+      <if test="mass != null">
+        MASS,
+      </if>
+      <if test="maxload != null">
+        MAXLOAD,
+      </if>
+      <if test="mlength != null">
+        MLENGTH,
+      </if>
+      <if test="mdiameter != null">
+        MDIAMETER,
+      </if>
+      <if test="mwinglength != null">
+        MWINGLENGTH,
+      </if>
+      <if test="mkillposibility != null">
+        MKILLPOSIBILITY,
+      </if>
+      <if test="year != null">
+        YEAR,
+      </if>
+      <if test="cpi != null">
+        CPI,
+      </if>
+      <if test="netExpSame != null">
+        NET_EXP_SAME,
+      </if>
+      <if test="netExpDiff != null">
+        NET_EXP_DIFF,
+      </if>
+      <if test="country != null">
+        COUNTRY,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="maxrange != null">
+        #{maxrange,jdbcType=DECIMAL},
+      </if>
+      <if test="maxheight != null">
+        #{maxheight,jdbcType=DECIMAL},
+      </if>
+      <if test="maxspeed != null">
+        #{maxspeed,jdbcType=DECIMAL},
+      </if>
+      <if test="mass != null">
+        #{mass,jdbcType=DECIMAL},
+      </if>
+      <if test="maxload != null">
+        #{maxload,jdbcType=DECIMAL},
+      </if>
+      <if test="mlength != null">
+        #{mlength,jdbcType=DECIMAL},
+      </if>
+      <if test="mdiameter != null">
+        #{mdiameter,jdbcType=DECIMAL},
+      </if>
+      <if test="mwinglength != null">
+        #{mwinglength,jdbcType=DECIMAL},
+      </if>
+      <if test="mkillposibility != null">
+        #{mkillposibility,jdbcType=DECIMAL},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="cpi != null">
+        #{cpi,jdbcType=VARCHAR},
+      </if>
+      <if test="netExpSame != null">
+        #{netExpSame,jdbcType=DECIMAL},
+      </if>
+      <if test="netExpDiff != null">
+        #{netExpDiff,jdbcType=DECIMAL},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LlcEstimateDataExample" resultType="java.lang.Long">
+    select count(*) from llc_estimate_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update llc_estimate_data
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxrange != null">
+        MAXRANGE = #{record.maxrange,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxheight != null">
+        MAXHEIGHT = #{record.maxheight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxspeed != null">
+        MAXSPEED = #{record.maxspeed,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mass != null">
+        MASS = #{record.mass,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxload != null">
+        MAXLOAD = #{record.maxload,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mlength != null">
+        MLENGTH = #{record.mlength,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mdiameter != null">
+        MDIAMETER = #{record.mdiameter,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mwinglength != null">
+        MWINGLENGTH = #{record.mwinglength,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mkillposibility != null">
+        MKILLPOSIBILITY = #{record.mkillposibility,jdbcType=DECIMAL},
+      </if>
+      <if test="record.year != null">
+        YEAR = #{record.year,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpi != null">
+        CPI = #{record.cpi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netExpSame != null">
+        NET_EXP_SAME = #{record.netExpSame,jdbcType=DECIMAL},
+      </if>
+      <if test="record.netExpDiff != null">
+        NET_EXP_DIFF = #{record.netExpDiff,jdbcType=DECIMAL},
+      </if>
+      <if test="record.country != null">
+        COUNTRY = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update llc_estimate_data
+    set ID = #{record.id,jdbcType=DECIMAL},
+      MAXRANGE = #{record.maxrange,jdbcType=DECIMAL},
+      MAXHEIGHT = #{record.maxheight,jdbcType=DECIMAL},
+      MAXSPEED = #{record.maxspeed,jdbcType=DECIMAL},
+      MASS = #{record.mass,jdbcType=DECIMAL},
+      MAXLOAD = #{record.maxload,jdbcType=DECIMAL},
+      MLENGTH = #{record.mlength,jdbcType=DECIMAL},
+      MDIAMETER = #{record.mdiameter,jdbcType=DECIMAL},
+      MWINGLENGTH = #{record.mwinglength,jdbcType=DECIMAL},
+      MKILLPOSIBILITY = #{record.mkillposibility,jdbcType=DECIMAL},
+      YEAR = #{record.year,jdbcType=VARCHAR},
+      CPI = #{record.cpi,jdbcType=VARCHAR},
+      NET_EXP_SAME = #{record.netExpSame,jdbcType=DECIMAL},
+      NET_EXP_DIFF = #{record.netExpDiff,jdbcType=DECIMAL},
+      COUNTRY = #{record.country,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.LlcEstimateData">
+    update llc_estimate_data
+    <set>
+      <if test="maxrange != null">
+        MAXRANGE = #{maxrange,jdbcType=DECIMAL},
+      </if>
+      <if test="maxheight != null">
+        MAXHEIGHT = #{maxheight,jdbcType=DECIMAL},
+      </if>
+      <if test="maxspeed != null">
+        MAXSPEED = #{maxspeed,jdbcType=DECIMAL},
+      </if>
+      <if test="mass != null">
+        MASS = #{mass,jdbcType=DECIMAL},
+      </if>
+      <if test="maxload != null">
+        MAXLOAD = #{maxload,jdbcType=DECIMAL},
+      </if>
+      <if test="mlength != null">
+        MLENGTH = #{mlength,jdbcType=DECIMAL},
+      </if>
+      <if test="mdiameter != null">
+        MDIAMETER = #{mdiameter,jdbcType=DECIMAL},
+      </if>
+      <if test="mwinglength != null">
+        MWINGLENGTH = #{mwinglength,jdbcType=DECIMAL},
+      </if>
+      <if test="mkillposibility != null">
+        MKILLPOSIBILITY = #{mkillposibility,jdbcType=DECIMAL},
+      </if>
+      <if test="year != null">
+        YEAR = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="cpi != null">
+        CPI = #{cpi,jdbcType=VARCHAR},
+      </if>
+      <if test="netExpSame != null">
+        NET_EXP_SAME = #{netExpSame,jdbcType=DECIMAL},
+      </if>
+      <if test="netExpDiff != null">
+        NET_EXP_DIFF = #{netExpDiff,jdbcType=DECIMAL},
+      </if>
+      <if test="country != null">
+        COUNTRY = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.LlcEstimateData">
+    update llc_estimate_data
+    set MAXRANGE = #{maxrange,jdbcType=DECIMAL},
+      MAXHEIGHT = #{maxheight,jdbcType=DECIMAL},
+      MAXSPEED = #{maxspeed,jdbcType=DECIMAL},
+      MASS = #{mass,jdbcType=DECIMAL},
+      MAXLOAD = #{maxload,jdbcType=DECIMAL},
+      MLENGTH = #{mlength,jdbcType=DECIMAL},
+      MDIAMETER = #{mdiameter,jdbcType=DECIMAL},
+      MWINGLENGTH = #{mwinglength,jdbcType=DECIMAL},
+      MKILLPOSIBILITY = #{mkillposibility,jdbcType=DECIMAL},
+      YEAR = #{year,jdbcType=VARCHAR},
+      CPI = #{cpi,jdbcType=VARCHAR},
+      NET_EXP_SAME = #{netExpSame,jdbcType=DECIMAL},
+      NET_EXP_DIFF = #{netExpDiff,jdbcType=DECIMAL},
+      COUNTRY = #{country,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

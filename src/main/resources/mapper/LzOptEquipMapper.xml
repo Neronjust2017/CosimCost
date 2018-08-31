@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LzOptEquipMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LzOptEquip">
+    <id column="Y_EQUIP_ID" jdbcType="DECIMAL" property="yEquipId" />
+    <result column="OPT_ID" jdbcType="DECIMAL" property="optId" />
+    <result column="STA_ID" jdbcType="DECIMAL" property="staId" />
+    <result column="EQUIP_ID" jdbcType="DECIMAL" property="equipId" />
+    <result column="EQUIP_QUANTITY" jdbcType="DECIMAL" property="equipQuantity" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Y_EQUIP_ID, OPT_ID, STA_ID, EQUIP_ID, EQUIP_QUANTITY
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LzOptEquipExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lz_opt_equip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lz_opt_equip
+    where Y_EQUIP_ID = #{yEquipId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from lz_opt_equip
+    where Y_EQUIP_ID = #{yEquipId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.LzOptEquipExample">
+    delete from lz_opt_equip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LzOptEquip">
+    insert into lz_opt_equip (Y_EQUIP_ID, OPT_ID, STA_ID, 
+      EQUIP_ID, EQUIP_QUANTITY)
+    values (#{yEquipId,jdbcType=DECIMAL}, #{optId,jdbcType=DECIMAL}, #{staId,jdbcType=DECIMAL}, 
+      #{equipId,jdbcType=DECIMAL}, #{equipQuantity,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LzOptEquip">
+    insert into lz_opt_equip
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="yEquipId != null">
+        Y_EQUIP_ID,
+      </if>
+      <if test="optId != null">
+        OPT_ID,
+      </if>
+      <if test="staId != null">
+        STA_ID,
+      </if>
+      <if test="equipId != null">
+        EQUIP_ID,
+      </if>
+      <if test="equipQuantity != null">
+        EQUIP_QUANTITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="yEquipId != null">
+        #{yEquipId,jdbcType=DECIMAL},
+      </if>
+      <if test="optId != null">
+        #{optId,jdbcType=DECIMAL},
+      </if>
+      <if test="staId != null">
+        #{staId,jdbcType=DECIMAL},
+      </if>
+      <if test="equipId != null">
+        #{equipId,jdbcType=DECIMAL},
+      </if>
+      <if test="equipQuantity != null">
+        #{equipQuantity,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LzOptEquipExample" resultType="java.lang.Long">
+    select count(*) from lz_opt_equip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update lz_opt_equip
+    <set>
+      <if test="record.yEquipId != null">
+        Y_EQUIP_ID = #{record.yEquipId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.optId != null">
+        OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.staId != null">
+        STA_ID = #{record.staId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.equipId != null">
+        EQUIP_ID = #{record.equipId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.equipQuantity != null">
+        EQUIP_QUANTITY = #{record.equipQuantity,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update lz_opt_equip
+    set Y_EQUIP_ID = #{record.yEquipId,jdbcType=DECIMAL},
+      OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      STA_ID = #{record.staId,jdbcType=DECIMAL},
+      EQUIP_ID = #{record.equipId,jdbcType=DECIMAL},
+      EQUIP_QUANTITY = #{record.equipQuantity,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.LzOptEquip">
+    update lz_opt_equip
+    <set>
+      <if test="optId != null">
+        OPT_ID = #{optId,jdbcType=DECIMAL},
+      </if>
+      <if test="staId != null">
+        STA_ID = #{staId,jdbcType=DECIMAL},
+      </if>
+      <if test="equipId != null">
+        EQUIP_ID = #{equipId,jdbcType=DECIMAL},
+      </if>
+      <if test="equipQuantity != null">
+        EQUIP_QUANTITY = #{equipQuantity,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where Y_EQUIP_ID = #{yEquipId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.LzOptEquip">
+    update lz_opt_equip
+    set OPT_ID = #{optId,jdbcType=DECIMAL},
+      STA_ID = #{staId,jdbcType=DECIMAL},
+      EQUIP_ID = #{equipId,jdbcType=DECIMAL},
+      EQUIP_QUANTITY = #{equipQuantity,jdbcType=DECIMAL}
+    where Y_EQUIP_ID = #{yEquipId,jdbcType=DECIMAL}
+  </update>
+</mapper>

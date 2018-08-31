@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.EquipAvailabilityChangeMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.EquipAvailabilityChange">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="OPT_ID" jdbcType="DECIMAL" property="optId" />
+    <result column="EQUIP_ID" jdbcType="DECIMAL" property="equipId" />
+    <result column="EQUIP_AVAILABILITY" jdbcType="DECIMAL" property="equipAvailability" />
+    <result column="GENERATION" jdbcType="DECIMAL" property="generation" />
+    <result column="STA_ID" jdbcType="DECIMAL" property="staId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, OPT_ID, EQUIP_ID, EQUIP_AVAILABILITY, GENERATION, STA_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.EquipAvailabilityChangeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from equip_availability_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from equip_availability_change
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from equip_availability_change
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.EquipAvailabilityChangeExample">
+    delete from equip_availability_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.EquipAvailabilityChange">
+    insert into equip_availability_change (ID, OPT_ID, EQUIP_ID, 
+      EQUIP_AVAILABILITY, GENERATION, STA_ID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{optId,jdbcType=DECIMAL}, #{equipId,jdbcType=DECIMAL}, 
+      #{equipAvailability,jdbcType=DECIMAL}, #{generation,jdbcType=DECIMAL}, #{staId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.EquipAvailabilityChange">
+    insert into equip_availability_change
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="optId != null">
+        OPT_ID,
+      </if>
+      <if test="equipId != null">
+        EQUIP_ID,
+      </if>
+      <if test="equipAvailability != null">
+        EQUIP_AVAILABILITY,
+      </if>
+      <if test="generation != null">
+        GENERATION,
+      </if>
+      <if test="staId != null">
+        STA_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="optId != null">
+        #{optId,jdbcType=DECIMAL},
+      </if>
+      <if test="equipId != null">
+        #{equipId,jdbcType=DECIMAL},
+      </if>
+      <if test="equipAvailability != null">
+        #{equipAvailability,jdbcType=DECIMAL},
+      </if>
+      <if test="generation != null">
+        #{generation,jdbcType=DECIMAL},
+      </if>
+      <if test="staId != null">
+        #{staId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.EquipAvailabilityChangeExample" resultType="java.lang.Long">
+    select count(*) from equip_availability_change
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update equip_availability_change
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.optId != null">
+        OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.equipId != null">
+        EQUIP_ID = #{record.equipId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.equipAvailability != null">
+        EQUIP_AVAILABILITY = #{record.equipAvailability,jdbcType=DECIMAL},
+      </if>
+      <if test="record.generation != null">
+        GENERATION = #{record.generation,jdbcType=DECIMAL},
+      </if>
+      <if test="record.staId != null">
+        STA_ID = #{record.staId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update equip_availability_change
+    set ID = #{record.id,jdbcType=DECIMAL},
+      OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      EQUIP_ID = #{record.equipId,jdbcType=DECIMAL},
+      EQUIP_AVAILABILITY = #{record.equipAvailability,jdbcType=DECIMAL},
+      GENERATION = #{record.generation,jdbcType=DECIMAL},
+      STA_ID = #{record.staId,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.EquipAvailabilityChange">
+    update equip_availability_change
+    <set>
+      <if test="optId != null">
+        OPT_ID = #{optId,jdbcType=DECIMAL},
+      </if>
+      <if test="equipId != null">
+        EQUIP_ID = #{equipId,jdbcType=DECIMAL},
+      </if>
+      <if test="equipAvailability != null">
+        EQUIP_AVAILABILITY = #{equipAvailability,jdbcType=DECIMAL},
+      </if>
+      <if test="generation != null">
+        GENERATION = #{generation,jdbcType=DECIMAL},
+      </if>
+      <if test="staId != null">
+        STA_ID = #{staId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.EquipAvailabilityChange">
+    update equip_availability_change
+    set OPT_ID = #{optId,jdbcType=DECIMAL},
+      EQUIP_ID = #{equipId,jdbcType=DECIMAL},
+      EQUIP_AVAILABILITY = #{equipAvailability,jdbcType=DECIMAL},
+      GENERATION = #{generation,jdbcType=DECIMAL},
+      STA_ID = #{staId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

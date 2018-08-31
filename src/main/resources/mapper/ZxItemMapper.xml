@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.ZxItemMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.ZxItem">
+    <id column="ITEM_ID" jdbcType="DECIMAL" property="itemId" />
+    <result column="ITEM_ORDER" jdbcType="VARCHAR" property="itemOrder" />
+    <result column="ITEM_NAME" jdbcType="VARCHAR" property="itemName" />
+    <result column="H_ITEM_ID" jdbcType="DECIMAL" property="hItemId" />
+    <result column="H_NUMBER" jdbcType="DECIMAL" property="hNumber" />
+    <result column="FAIL_WARM_STANDBY" jdbcType="DECIMAL" property="failWarmStandby" />
+    <result column="ITEM_COST" jdbcType="DECIMAL" property="itemCost" />
+    <result column="REPAIR_TIME" jdbcType="DECIMAL" property="repairTime" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="FAIL_COLD_STANDBY" jdbcType="DECIMAL" property="failColdStandby" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ITEM_ID, ITEM_ORDER, ITEM_NAME, H_ITEM_ID, H_NUMBER, FAIL_WARM_STANDBY, ITEM_COST, 
+    REPAIR_TIME, TYPE, FAIL_COLD_STANDBY
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.ZxItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zx_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zx_item
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from zx_item
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.ZxItemExample">
+    delete from zx_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.ZxItem">
+    insert into zx_item (ITEM_ID, ITEM_ORDER, ITEM_NAME, 
+      H_ITEM_ID, H_NUMBER, FAIL_WARM_STANDBY, 
+      ITEM_COST, REPAIR_TIME, TYPE, 
+      FAIL_COLD_STANDBY)
+    values (#{itemId,jdbcType=DECIMAL}, #{itemOrder,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, 
+      #{hItemId,jdbcType=DECIMAL}, #{hNumber,jdbcType=DECIMAL}, #{failWarmStandby,jdbcType=DECIMAL}, 
+      #{itemCost,jdbcType=DECIMAL}, #{repairTime,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR}, 
+      #{failColdStandby,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.ZxItem">
+    insert into zx_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="itemOrder != null">
+        ITEM_ORDER,
+      </if>
+      <if test="itemName != null">
+        ITEM_NAME,
+      </if>
+      <if test="hItemId != null">
+        H_ITEM_ID,
+      </if>
+      <if test="hNumber != null">
+        H_NUMBER,
+      </if>
+      <if test="failWarmStandby != null">
+        FAIL_WARM_STANDBY,
+      </if>
+      <if test="itemCost != null">
+        ITEM_COST,
+      </if>
+      <if test="repairTime != null">
+        REPAIR_TIME,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="failColdStandby != null">
+        FAIL_COLD_STANDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemOrder != null">
+        #{itemOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="hItemId != null">
+        #{hItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="hNumber != null">
+        #{hNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="failWarmStandby != null">
+        #{failWarmStandby,jdbcType=DECIMAL},
+      </if>
+      <if test="itemCost != null">
+        #{itemCost,jdbcType=DECIMAL},
+      </if>
+      <if test="repairTime != null">
+        #{repairTime,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="failColdStandby != null">
+        #{failColdStandby,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.ZxItemExample" resultType="java.lang.Long">
+    select count(*) from zx_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update zx_item
+    <set>
+      <if test="record.itemId != null">
+        ITEM_ID = #{record.itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemOrder != null">
+        ITEM_ORDER = #{record.itemOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemName != null">
+        ITEM_NAME = #{record.itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hItemId != null">
+        H_ITEM_ID = #{record.hItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hNumber != null">
+        H_NUMBER = #{record.hNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.failWarmStandby != null">
+        FAIL_WARM_STANDBY = #{record.failWarmStandby,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemCost != null">
+        ITEM_COST = #{record.itemCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repairTime != null">
+        REPAIR_TIME = #{record.repairTime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.failColdStandby != null">
+        FAIL_COLD_STANDBY = #{record.failColdStandby,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zx_item
+    set ITEM_ID = #{record.itemId,jdbcType=DECIMAL},
+      ITEM_ORDER = #{record.itemOrder,jdbcType=VARCHAR},
+      ITEM_NAME = #{record.itemName,jdbcType=VARCHAR},
+      H_ITEM_ID = #{record.hItemId,jdbcType=DECIMAL},
+      H_NUMBER = #{record.hNumber,jdbcType=DECIMAL},
+      FAIL_WARM_STANDBY = #{record.failWarmStandby,jdbcType=DECIMAL},
+      ITEM_COST = #{record.itemCost,jdbcType=DECIMAL},
+      REPAIR_TIME = #{record.repairTime,jdbcType=DECIMAL},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      FAIL_COLD_STANDBY = #{record.failColdStandby,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.ZxItem">
+    update zx_item
+    <set>
+      <if test="itemOrder != null">
+        ITEM_ORDER = #{itemOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="hItemId != null">
+        H_ITEM_ID = #{hItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="hNumber != null">
+        H_NUMBER = #{hNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="failWarmStandby != null">
+        FAIL_WARM_STANDBY = #{failWarmStandby,jdbcType=DECIMAL},
+      </if>
+      <if test="itemCost != null">
+        ITEM_COST = #{itemCost,jdbcType=DECIMAL},
+      </if>
+      <if test="repairTime != null">
+        REPAIR_TIME = #{repairTime,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="failColdStandby != null">
+        FAIL_COLD_STANDBY = #{failColdStandby,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.ZxItem">
+    update zx_item
+    set ITEM_ORDER = #{itemOrder,jdbcType=VARCHAR},
+      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      H_ITEM_ID = #{hItemId,jdbcType=DECIMAL},
+      H_NUMBER = #{hNumber,jdbcType=DECIMAL},
+      FAIL_WARM_STANDBY = #{failWarmStandby,jdbcType=DECIMAL},
+      ITEM_COST = #{itemCost,jdbcType=DECIMAL},
+      REPAIR_TIME = #{repairTime,jdbcType=DECIMAL},
+      TYPE = #{type,jdbcType=VARCHAR},
+      FAIL_COLD_STANDBY = #{failColdStandby,jdbcType=DECIMAL}
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </update>
+</mapper>

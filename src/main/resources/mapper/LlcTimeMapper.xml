@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LlcTimeMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LlcTime">
+    <id column="TIME_TREE_ID" jdbcType="DECIMAL" property="timeTreeId" />
+    <id column="TIME_ID" jdbcType="DECIMAL" property="timeId" />
+    <result column="TIME_NAME" jdbcType="VARCHAR" property="timeName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TIME_TREE_ID, TIME_ID, TIME_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LlcTimeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from llc_time
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.njust.model.LlcTimeKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from llc_time
+    where TIME_TREE_ID = #{timeTreeId,jdbcType=DECIMAL}
+      and TIME_ID = #{timeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.njust.model.LlcTimeKey">
+    delete from llc_time
+    where TIME_TREE_ID = #{timeTreeId,jdbcType=DECIMAL}
+      and TIME_ID = #{timeId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.LlcTimeExample">
+    delete from llc_time
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LlcTime">
+    insert into llc_time (TIME_TREE_ID, TIME_ID, TIME_NAME
+      )
+    values (#{timeTreeId,jdbcType=DECIMAL}, #{timeId,jdbcType=DECIMAL}, #{timeName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LlcTime">
+    insert into llc_time
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="timeTreeId != null">
+        TIME_TREE_ID,
+      </if>
+      <if test="timeId != null">
+        TIME_ID,
+      </if>
+      <if test="timeName != null">
+        TIME_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="timeTreeId != null">
+        #{timeTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="timeId != null">
+        #{timeId,jdbcType=DECIMAL},
+      </if>
+      <if test="timeName != null">
+        #{timeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LlcTimeExample" resultType="java.lang.Long">
+    select count(*) from llc_time
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update llc_time
+    <set>
+      <if test="record.timeTreeId != null">
+        TIME_TREE_ID = #{record.timeTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.timeId != null">
+        TIME_ID = #{record.timeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.timeName != null">
+        TIME_NAME = #{record.timeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update llc_time
+    set TIME_TREE_ID = #{record.timeTreeId,jdbcType=DECIMAL},
+      TIME_ID = #{record.timeId,jdbcType=DECIMAL},
+      TIME_NAME = #{record.timeName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.LlcTime">
+    update llc_time
+    <set>
+      <if test="timeName != null">
+        TIME_NAME = #{timeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TIME_TREE_ID = #{timeTreeId,jdbcType=DECIMAL}
+      and TIME_ID = #{timeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.LlcTime">
+    update llc_time
+    set TIME_NAME = #{timeName,jdbcType=VARCHAR}
+    where TIME_TREE_ID = #{timeTreeId,jdbcType=DECIMAL}
+      and TIME_ID = #{timeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

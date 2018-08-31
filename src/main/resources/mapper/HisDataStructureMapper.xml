@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.HisDataStructureMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.HisDataStructure">
+    <id column="ATTR_ID" jdbcType="DECIMAL" property="attrId" />
+    <result column="SET_ID" jdbcType="DECIMAL" property="setId" />
+    <result column="ATTR_NAME" jdbcType="VARCHAR" property="attrName" />
+    <result column="ATTR_UNIT" jdbcType="VARCHAR" property="attrUnit" />
+    <result column="ATTR_TYPE" jdbcType="VARCHAR" property="attrType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ATTR_ID, SET_ID, ATTR_NAME, ATTR_UNIT, ATTR_TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.HisDataStructureExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from his_data_structure
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from his_data_structure
+    where ATTR_ID = #{attrId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from his_data_structure
+    where ATTR_ID = #{attrId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.HisDataStructureExample">
+    delete from his_data_structure
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.HisDataStructure">
+    insert into his_data_structure (ATTR_ID, SET_ID, ATTR_NAME, 
+      ATTR_UNIT, ATTR_TYPE)
+    values (#{attrId,jdbcType=DECIMAL}, #{setId,jdbcType=DECIMAL}, #{attrName,jdbcType=VARCHAR}, 
+      #{attrUnit,jdbcType=VARCHAR}, #{attrType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.HisDataStructure">
+    insert into his_data_structure
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="attrId != null">
+        ATTR_ID,
+      </if>
+      <if test="setId != null">
+        SET_ID,
+      </if>
+      <if test="attrName != null">
+        ATTR_NAME,
+      </if>
+      <if test="attrUnit != null">
+        ATTR_UNIT,
+      </if>
+      <if test="attrType != null">
+        ATTR_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="attrId != null">
+        #{attrId,jdbcType=DECIMAL},
+      </if>
+      <if test="setId != null">
+        #{setId,jdbcType=DECIMAL},
+      </if>
+      <if test="attrName != null">
+        #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="attrUnit != null">
+        #{attrUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="attrType != null">
+        #{attrType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.HisDataStructureExample" resultType="java.lang.Long">
+    select count(*) from his_data_structure
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update his_data_structure
+    <set>
+      <if test="record.attrId != null">
+        ATTR_ID = #{record.attrId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.setId != null">
+        SET_ID = #{record.setId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.attrName != null">
+        ATTR_NAME = #{record.attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attrUnit != null">
+        ATTR_UNIT = #{record.attrUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attrType != null">
+        ATTR_TYPE = #{record.attrType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update his_data_structure
+    set ATTR_ID = #{record.attrId,jdbcType=DECIMAL},
+      SET_ID = #{record.setId,jdbcType=DECIMAL},
+      ATTR_NAME = #{record.attrName,jdbcType=VARCHAR},
+      ATTR_UNIT = #{record.attrUnit,jdbcType=VARCHAR},
+      ATTR_TYPE = #{record.attrType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.HisDataStructure">
+    update his_data_structure
+    <set>
+      <if test="setId != null">
+        SET_ID = #{setId,jdbcType=DECIMAL},
+      </if>
+      <if test="attrName != null">
+        ATTR_NAME = #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="attrUnit != null">
+        ATTR_UNIT = #{attrUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="attrType != null">
+        ATTR_TYPE = #{attrType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ATTR_ID = #{attrId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.HisDataStructure">
+    update his_data_structure
+    set SET_ID = #{setId,jdbcType=DECIMAL},
+      ATTR_NAME = #{attrName,jdbcType=VARCHAR},
+      ATTR_UNIT = #{attrUnit,jdbcType=VARCHAR},
+      ATTR_TYPE = #{attrType,jdbcType=VARCHAR}
+    where ATTR_ID = #{attrId,jdbcType=DECIMAL}
+  </update>
+</mapper>

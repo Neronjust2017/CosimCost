@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LzOptVersionMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LzOptVersion">
+    <id column="OPT_ID" jdbcType="DECIMAL" property="optId" />
+    <result column="PRO_ID" jdbcType="DECIMAL" property="proId" />
+    <result column="OPT_NAME" jdbcType="VARCHAR" property="optName" />
+    <result column="OPT_DESCRIBE" jdbcType="VARCHAR" property="optDescribe" />
+    <result column="OPT_FUND" jdbcType="DECIMAL" property="optFund" />
+    <result column="OPT_BUILDTIME" jdbcType="VARCHAR" property="optBuildtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    OPT_ID, PRO_ID, OPT_NAME, OPT_DESCRIBE, OPT_FUND, OPT_BUILDTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LzOptVersionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lz_opt_version
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lz_opt_version
+    where OPT_ID = #{optId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from lz_opt_version
+    where OPT_ID = #{optId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.LzOptVersionExample">
+    delete from lz_opt_version
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LzOptVersion">
+    insert into lz_opt_version (OPT_ID, PRO_ID, OPT_NAME, 
+      OPT_DESCRIBE, OPT_FUND, OPT_BUILDTIME
+      )
+    values (#{optId,jdbcType=DECIMAL}, #{proId,jdbcType=DECIMAL}, #{optName,jdbcType=VARCHAR}, 
+      #{optDescribe,jdbcType=VARCHAR}, #{optFund,jdbcType=DECIMAL}, #{optBuildtime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LzOptVersion">
+    insert into lz_opt_version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="optId != null">
+        OPT_ID,
+      </if>
+      <if test="proId != null">
+        PRO_ID,
+      </if>
+      <if test="optName != null">
+        OPT_NAME,
+      </if>
+      <if test="optDescribe != null">
+        OPT_DESCRIBE,
+      </if>
+      <if test="optFund != null">
+        OPT_FUND,
+      </if>
+      <if test="optBuildtime != null">
+        OPT_BUILDTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="optId != null">
+        #{optId,jdbcType=DECIMAL},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=DECIMAL},
+      </if>
+      <if test="optName != null">
+        #{optName,jdbcType=VARCHAR},
+      </if>
+      <if test="optDescribe != null">
+        #{optDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="optFund != null">
+        #{optFund,jdbcType=DECIMAL},
+      </if>
+      <if test="optBuildtime != null">
+        #{optBuildtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LzOptVersionExample" resultType="java.lang.Long">
+    select count(*) from lz_opt_version
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update lz_opt_version
+    <set>
+      <if test="record.optId != null">
+        OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proId != null">
+        PRO_ID = #{record.proId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.optName != null">
+        OPT_NAME = #{record.optName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optDescribe != null">
+        OPT_DESCRIBE = #{record.optDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optFund != null">
+        OPT_FUND = #{record.optFund,jdbcType=DECIMAL},
+      </if>
+      <if test="record.optBuildtime != null">
+        OPT_BUILDTIME = #{record.optBuildtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update lz_opt_version
+    set OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      PRO_ID = #{record.proId,jdbcType=DECIMAL},
+      OPT_NAME = #{record.optName,jdbcType=VARCHAR},
+      OPT_DESCRIBE = #{record.optDescribe,jdbcType=VARCHAR},
+      OPT_FUND = #{record.optFund,jdbcType=DECIMAL},
+      OPT_BUILDTIME = #{record.optBuildtime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.LzOptVersion">
+    update lz_opt_version
+    <set>
+      <if test="proId != null">
+        PRO_ID = #{proId,jdbcType=DECIMAL},
+      </if>
+      <if test="optName != null">
+        OPT_NAME = #{optName,jdbcType=VARCHAR},
+      </if>
+      <if test="optDescribe != null">
+        OPT_DESCRIBE = #{optDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="optFund != null">
+        OPT_FUND = #{optFund,jdbcType=DECIMAL},
+      </if>
+      <if test="optBuildtime != null">
+        OPT_BUILDTIME = #{optBuildtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPT_ID = #{optId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.LzOptVersion">
+    update lz_opt_version
+    set PRO_ID = #{proId,jdbcType=DECIMAL},
+      OPT_NAME = #{optName,jdbcType=VARCHAR},
+      OPT_DESCRIBE = #{optDescribe,jdbcType=VARCHAR},
+      OPT_FUND = #{optFund,jdbcType=DECIMAL},
+      OPT_BUILDTIME = #{optBuildtime,jdbcType=VARCHAR}
+    where OPT_ID = #{optId,jdbcType=DECIMAL}
+  </update>
+</mapper>

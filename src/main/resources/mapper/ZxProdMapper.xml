@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.ZxProdMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.ZxProd">
+    <result column="PROD_ID" jdbcType="DECIMAL" property="prodId" />
+    <result column="PROD_ORDER" jdbcType="VARCHAR" property="prodOrder" />
+    <result column="PROD_NAME" jdbcType="VARCHAR" property="prodName" />
+    <result column="PROD_COST" jdbcType="DECIMAL" property="prodCost" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PROD_ID, PROD_ORDER, PROD_NAME, PROD_COST
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.ZxProdExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zx_prod
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.njust.model.ZxProdExample">
+    delete from zx_prod
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.ZxProd">
+    insert into zx_prod (PROD_ID, PROD_ORDER, PROD_NAME, 
+      PROD_COST)
+    values (#{prodId,jdbcType=DECIMAL}, #{prodOrder,jdbcType=VARCHAR}, #{prodName,jdbcType=VARCHAR}, 
+      #{prodCost,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.ZxProd">
+    insert into zx_prod
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="prodId != null">
+        PROD_ID,
+      </if>
+      <if test="prodOrder != null">
+        PROD_ORDER,
+      </if>
+      <if test="prodName != null">
+        PROD_NAME,
+      </if>
+      <if test="prodCost != null">
+        PROD_COST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="prodId != null">
+        #{prodId,jdbcType=DECIMAL},
+      </if>
+      <if test="prodOrder != null">
+        #{prodOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="prodName != null">
+        #{prodName,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCost != null">
+        #{prodCost,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.ZxProdExample" resultType="java.lang.Long">
+    select count(*) from zx_prod
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update zx_prod
+    <set>
+      <if test="record.prodId != null">
+        PROD_ID = #{record.prodId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.prodOrder != null">
+        PROD_ORDER = #{record.prodOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodName != null">
+        PROD_NAME = #{record.prodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prodCost != null">
+        PROD_COST = #{record.prodCost,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zx_prod
+    set PROD_ID = #{record.prodId,jdbcType=DECIMAL},
+      PROD_ORDER = #{record.prodOrder,jdbcType=VARCHAR},
+      PROD_NAME = #{record.prodName,jdbcType=VARCHAR},
+      PROD_COST = #{record.prodCost,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

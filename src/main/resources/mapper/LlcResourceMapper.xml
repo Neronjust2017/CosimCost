@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LlcResourceMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LlcResource">
+    <id column="RESOURCE_TREE_ID" jdbcType="DECIMAL" property="resourceTreeId" />
+    <id column="RESOURCE_ID" jdbcType="DECIMAL" property="resourceId" />
+    <result column="RESOURCE_NAME" jdbcType="VARCHAR" property="resourceName" />
+    <result column="SUPER_RESOURCE_ID" jdbcType="DECIMAL" property="superResourceId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RESOURCE_TREE_ID, RESOURCE_ID, RESOURCE_NAME, SUPER_RESOURCE_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LlcResourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from llc_resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.njust.model.LlcResourceKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from llc_resource
+    where RESOURCE_TREE_ID = #{resourceTreeId,jdbcType=DECIMAL}
+      and RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.njust.model.LlcResourceKey">
+    delete from llc_resource
+    where RESOURCE_TREE_ID = #{resourceTreeId,jdbcType=DECIMAL}
+      and RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.LlcResourceExample">
+    delete from llc_resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LlcResource">
+    insert into llc_resource (RESOURCE_TREE_ID, RESOURCE_ID, RESOURCE_NAME, 
+      SUPER_RESOURCE_ID)
+    values (#{resourceTreeId,jdbcType=DECIMAL}, #{resourceId,jdbcType=DECIMAL}, #{resourceName,jdbcType=VARCHAR}, 
+      #{superResourceId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LlcResource">
+    insert into llc_resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resourceTreeId != null">
+        RESOURCE_TREE_ID,
+      </if>
+      <if test="resourceId != null">
+        RESOURCE_ID,
+      </if>
+      <if test="resourceName != null">
+        RESOURCE_NAME,
+      </if>
+      <if test="superResourceId != null">
+        SUPER_RESOURCE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resourceTreeId != null">
+        #{resourceTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceName != null">
+        #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="superResourceId != null">
+        #{superResourceId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LlcResourceExample" resultType="java.lang.Long">
+    select count(*) from llc_resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update llc_resource
+    <set>
+      <if test="record.resourceTreeId != null">
+        RESOURCE_TREE_ID = #{record.resourceTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resourceId != null">
+        RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resourceName != null">
+        RESOURCE_NAME = #{record.resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.superResourceId != null">
+        SUPER_RESOURCE_ID = #{record.superResourceId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update llc_resource
+    set RESOURCE_TREE_ID = #{record.resourceTreeId,jdbcType=DECIMAL},
+      RESOURCE_ID = #{record.resourceId,jdbcType=DECIMAL},
+      RESOURCE_NAME = #{record.resourceName,jdbcType=VARCHAR},
+      SUPER_RESOURCE_ID = #{record.superResourceId,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.LlcResource">
+    update llc_resource
+    <set>
+      <if test="resourceName != null">
+        RESOURCE_NAME = #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="superResourceId != null">
+        SUPER_RESOURCE_ID = #{superResourceId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RESOURCE_TREE_ID = #{resourceTreeId,jdbcType=DECIMAL}
+      and RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.LlcResource">
+    update llc_resource
+    set RESOURCE_NAME = #{resourceName,jdbcType=VARCHAR},
+      SUPER_RESOURCE_ID = #{superResourceId,jdbcType=DECIMAL}
+    where RESOURCE_TREE_ID = #{resourceTreeId,jdbcType=DECIMAL}
+      and RESOURCE_ID = #{resourceId,jdbcType=DECIMAL}
+  </update>
+</mapper>

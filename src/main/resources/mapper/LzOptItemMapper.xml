@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LzOptItemMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LzOptItem">
+    <id column="Y_ITEM_ID" jdbcType="DECIMAL" property="yItemId" />
+    <result column="OPT_ID" jdbcType="DECIMAL" property="optId" />
+    <result column="STA_TYPE" jdbcType="DECIMAL" property="staType" />
+    <result column="SPARE_ID" jdbcType="DECIMAL" property="spareId" />
+    <result column="REPAIR_RATE" jdbcType="DECIMAL" property="repairRate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Y_ITEM_ID, OPT_ID, STA_TYPE, SPARE_ID, REPAIR_RATE
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LzOptItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lz_opt_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lz_opt_item
+    where Y_ITEM_ID = #{yItemId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from lz_opt_item
+    where Y_ITEM_ID = #{yItemId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.LzOptItemExample">
+    delete from lz_opt_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LzOptItem">
+    insert into lz_opt_item (Y_ITEM_ID, OPT_ID, STA_TYPE, 
+      SPARE_ID, REPAIR_RATE)
+    values (#{yItemId,jdbcType=DECIMAL}, #{optId,jdbcType=DECIMAL}, #{staType,jdbcType=DECIMAL}, 
+      #{spareId,jdbcType=DECIMAL}, #{repairRate,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LzOptItem">
+    insert into lz_opt_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="yItemId != null">
+        Y_ITEM_ID,
+      </if>
+      <if test="optId != null">
+        OPT_ID,
+      </if>
+      <if test="staType != null">
+        STA_TYPE,
+      </if>
+      <if test="spareId != null">
+        SPARE_ID,
+      </if>
+      <if test="repairRate != null">
+        REPAIR_RATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="yItemId != null">
+        #{yItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="optId != null">
+        #{optId,jdbcType=DECIMAL},
+      </if>
+      <if test="staType != null">
+        #{staType,jdbcType=DECIMAL},
+      </if>
+      <if test="spareId != null">
+        #{spareId,jdbcType=DECIMAL},
+      </if>
+      <if test="repairRate != null">
+        #{repairRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LzOptItemExample" resultType="java.lang.Long">
+    select count(*) from lz_opt_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update lz_opt_item
+    <set>
+      <if test="record.yItemId != null">
+        Y_ITEM_ID = #{record.yItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.optId != null">
+        OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.staType != null">
+        STA_TYPE = #{record.staType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.spareId != null">
+        SPARE_ID = #{record.spareId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repairRate != null">
+        REPAIR_RATE = #{record.repairRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update lz_opt_item
+    set Y_ITEM_ID = #{record.yItemId,jdbcType=DECIMAL},
+      OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      STA_TYPE = #{record.staType,jdbcType=DECIMAL},
+      SPARE_ID = #{record.spareId,jdbcType=DECIMAL},
+      REPAIR_RATE = #{record.repairRate,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.LzOptItem">
+    update lz_opt_item
+    <set>
+      <if test="optId != null">
+        OPT_ID = #{optId,jdbcType=DECIMAL},
+      </if>
+      <if test="staType != null">
+        STA_TYPE = #{staType,jdbcType=DECIMAL},
+      </if>
+      <if test="spareId != null">
+        SPARE_ID = #{spareId,jdbcType=DECIMAL},
+      </if>
+      <if test="repairRate != null">
+        REPAIR_RATE = #{repairRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where Y_ITEM_ID = #{yItemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.LzOptItem">
+    update lz_opt_item
+    set OPT_ID = #{optId,jdbcType=DECIMAL},
+      STA_TYPE = #{staType,jdbcType=DECIMAL},
+      SPARE_ID = #{spareId,jdbcType=DECIMAL},
+      REPAIR_RATE = #{repairRate,jdbcType=DECIMAL}
+    where Y_ITEM_ID = #{yItemId,jdbcType=DECIMAL}
+  </update>
+</mapper>

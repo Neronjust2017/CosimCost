@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LzBpWMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LzBpW">
+    <result column="MODEL_TIME" jdbcType="VARCHAR" property="modelTime" />
+    <result column="W_WEIGHT_LAYERINDEX" jdbcType="DECIMAL" property="wWeightLayerindex" />
+    <result column="W_FORM_PREINDEX" jdbcType="DECIMAL" property="wFormPreindex" />
+    <result column="W_FORM_NXTINDEX" jdbcType="DECIMAL" property="wFormNxtindex" />
+    <result column="W_VALUE" jdbcType="DECIMAL" property="wValue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    MODEL_TIME, W_WEIGHT_LAYERINDEX, W_FORM_PREINDEX, W_FORM_NXTINDEX, W_VALUE
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LzBpWExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lz_bp_w
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.njust.model.LzBpWExample">
+    delete from lz_bp_w
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LzBpW">
+    insert into lz_bp_w (MODEL_TIME, W_WEIGHT_LAYERINDEX, W_FORM_PREINDEX, 
+      W_FORM_NXTINDEX, W_VALUE)
+    values (#{modelTime,jdbcType=VARCHAR}, #{wWeightLayerindex,jdbcType=DECIMAL}, #{wFormPreindex,jdbcType=DECIMAL}, 
+      #{wFormNxtindex,jdbcType=DECIMAL}, #{wValue,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LzBpW">
+    insert into lz_bp_w
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="modelTime != null">
+        MODEL_TIME,
+      </if>
+      <if test="wWeightLayerindex != null">
+        W_WEIGHT_LAYERINDEX,
+      </if>
+      <if test="wFormPreindex != null">
+        W_FORM_PREINDEX,
+      </if>
+      <if test="wFormNxtindex != null">
+        W_FORM_NXTINDEX,
+      </if>
+      <if test="wValue != null">
+        W_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="modelTime != null">
+        #{modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wWeightLayerindex != null">
+        #{wWeightLayerindex,jdbcType=DECIMAL},
+      </if>
+      <if test="wFormPreindex != null">
+        #{wFormPreindex,jdbcType=DECIMAL},
+      </if>
+      <if test="wFormNxtindex != null">
+        #{wFormNxtindex,jdbcType=DECIMAL},
+      </if>
+      <if test="wValue != null">
+        #{wValue,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LzBpWExample" resultType="java.lang.Long">
+    select count(*) from lz_bp_w
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update lz_bp_w
+    <set>
+      <if test="record.modelTime != null">
+        MODEL_TIME = #{record.modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wWeightLayerindex != null">
+        W_WEIGHT_LAYERINDEX = #{record.wWeightLayerindex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.wFormPreindex != null">
+        W_FORM_PREINDEX = #{record.wFormPreindex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.wFormNxtindex != null">
+        W_FORM_NXTINDEX = #{record.wFormNxtindex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.wValue != null">
+        W_VALUE = #{record.wValue,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update lz_bp_w
+    set MODEL_TIME = #{record.modelTime,jdbcType=VARCHAR},
+      W_WEIGHT_LAYERINDEX = #{record.wWeightLayerindex,jdbcType=DECIMAL},
+      W_FORM_PREINDEX = #{record.wFormPreindex,jdbcType=DECIMAL},
+      W_FORM_NXTINDEX = #{record.wFormNxtindex,jdbcType=DECIMAL},
+      W_VALUE = #{record.wValue,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.BpTrainParamsMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.BpTrainParams">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="MODEL_TIME" jdbcType="VARCHAR" property="modelTime" />
+    <result column="ALPHA" jdbcType="DECIMAL" property="alpha" />
+    <result column="SPEED" jdbcType="DECIMAL" property="speed" />
+    <result column="TRAIN_COUNT" jdbcType="DECIMAL" property="trainCount" />
+    <result column="TRAIN_PRECISION" jdbcType="DECIMAL" property="trainPrecision" />
+    <result column="FLAG" jdbcType="DECIMAL" property="flag" />
+    <result column="HLAYERS_INDEX" jdbcType="DECIMAL" property="hlayersIndex" />
+    <result column="HLAYERS_VALUE" jdbcType="DECIMAL" property="hlayersValue" />
+    <result column="COST_TREE_ID" jdbcType="DECIMAL" property="costTreeId" />
+    <result column="COST_ID" jdbcType="DECIMAL" property="costId" />
+    <result column="PROJECT_ID" jdbcType="DECIMAL" property="projectId" />
+    <result column="SCHEME_ID" jdbcType="DECIMAL" property="schemeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, MODEL_TIME, ALPHA, SPEED, TRAIN_COUNT, TRAIN_PRECISION, FLAG, HLAYERS_INDEX, 
+    HLAYERS_VALUE, COST_TREE_ID, COST_ID, PROJECT_ID, SCHEME_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.BpTrainParamsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bp_train_params
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bp_train_params
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from bp_train_params
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.BpTrainParamsExample">
+    delete from bp_train_params
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.BpTrainParams">
+    insert into bp_train_params (ID, MODEL_TIME, ALPHA, 
+      SPEED, TRAIN_COUNT, TRAIN_PRECISION, 
+      FLAG, HLAYERS_INDEX, HLAYERS_VALUE, 
+      COST_TREE_ID, COST_ID, PROJECT_ID, 
+      SCHEME_ID)
+    values (#{id,jdbcType=DECIMAL}, #{modelTime,jdbcType=VARCHAR}, #{alpha,jdbcType=DECIMAL}, 
+      #{speed,jdbcType=DECIMAL}, #{trainCount,jdbcType=DECIMAL}, #{trainPrecision,jdbcType=DECIMAL}, 
+      #{flag,jdbcType=DECIMAL}, #{hlayersIndex,jdbcType=DECIMAL}, #{hlayersValue,jdbcType=DECIMAL}, 
+      #{costTreeId,jdbcType=DECIMAL}, #{costId,jdbcType=DECIMAL}, #{projectId,jdbcType=DECIMAL}, 
+      #{schemeId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.BpTrainParams">
+    insert into bp_train_params
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="modelTime != null">
+        MODEL_TIME,
+      </if>
+      <if test="alpha != null">
+        ALPHA,
+      </if>
+      <if test="speed != null">
+        SPEED,
+      </if>
+      <if test="trainCount != null">
+        TRAIN_COUNT,
+      </if>
+      <if test="trainPrecision != null">
+        TRAIN_PRECISION,
+      </if>
+      <if test="flag != null">
+        FLAG,
+      </if>
+      <if test="hlayersIndex != null">
+        HLAYERS_INDEX,
+      </if>
+      <if test="hlayersValue != null">
+        HLAYERS_VALUE,
+      </if>
+      <if test="costTreeId != null">
+        COST_TREE_ID,
+      </if>
+      <if test="costId != null">
+        COST_ID,
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID,
+      </if>
+      <if test="schemeId != null">
+        SCHEME_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="modelTime != null">
+        #{modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="alpha != null">
+        #{alpha,jdbcType=DECIMAL},
+      </if>
+      <if test="speed != null">
+        #{speed,jdbcType=DECIMAL},
+      </if>
+      <if test="trainCount != null">
+        #{trainCount,jdbcType=DECIMAL},
+      </if>
+      <if test="trainPrecision != null">
+        #{trainPrecision,jdbcType=DECIMAL},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=DECIMAL},
+      </if>
+      <if test="hlayersIndex != null">
+        #{hlayersIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="hlayersValue != null">
+        #{hlayersValue,jdbcType=DECIMAL},
+      </if>
+      <if test="costTreeId != null">
+        #{costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costId != null">
+        #{costId,jdbcType=DECIMAL},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="schemeId != null">
+        #{schemeId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.BpTrainParamsExample" resultType="java.lang.Long">
+    select count(*) from bp_train_params
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bp_train_params
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.modelTime != null">
+        MODEL_TIME = #{record.modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alpha != null">
+        ALPHA = #{record.alpha,jdbcType=DECIMAL},
+      </if>
+      <if test="record.speed != null">
+        SPEED = #{record.speed,jdbcType=DECIMAL},
+      </if>
+      <if test="record.trainCount != null">
+        TRAIN_COUNT = #{record.trainCount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.trainPrecision != null">
+        TRAIN_PRECISION = #{record.trainPrecision,jdbcType=DECIMAL},
+      </if>
+      <if test="record.flag != null">
+        FLAG = #{record.flag,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hlayersIndex != null">
+        HLAYERS_INDEX = #{record.hlayersIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hlayersValue != null">
+        HLAYERS_VALUE = #{record.hlayersValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costTreeId != null">
+        COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costId != null">
+        COST_ID = #{record.costId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.projectId != null">
+        PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.schemeId != null">
+        SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bp_train_params
+    set ID = #{record.id,jdbcType=DECIMAL},
+      MODEL_TIME = #{record.modelTime,jdbcType=VARCHAR},
+      ALPHA = #{record.alpha,jdbcType=DECIMAL},
+      SPEED = #{record.speed,jdbcType=DECIMAL},
+      TRAIN_COUNT = #{record.trainCount,jdbcType=DECIMAL},
+      TRAIN_PRECISION = #{record.trainPrecision,jdbcType=DECIMAL},
+      FLAG = #{record.flag,jdbcType=DECIMAL},
+      HLAYERS_INDEX = #{record.hlayersIndex,jdbcType=DECIMAL},
+      HLAYERS_VALUE = #{record.hlayersValue,jdbcType=DECIMAL},
+      COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      COST_ID = #{record.costId,jdbcType=DECIMAL},
+      PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.BpTrainParams">
+    update bp_train_params
+    <set>
+      <if test="modelTime != null">
+        MODEL_TIME = #{modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="alpha != null">
+        ALPHA = #{alpha,jdbcType=DECIMAL},
+      </if>
+      <if test="speed != null">
+        SPEED = #{speed,jdbcType=DECIMAL},
+      </if>
+      <if test="trainCount != null">
+        TRAIN_COUNT = #{trainCount,jdbcType=DECIMAL},
+      </if>
+      <if test="trainPrecision != null">
+        TRAIN_PRECISION = #{trainPrecision,jdbcType=DECIMAL},
+      </if>
+      <if test="flag != null">
+        FLAG = #{flag,jdbcType=DECIMAL},
+      </if>
+      <if test="hlayersIndex != null">
+        HLAYERS_INDEX = #{hlayersIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="hlayersValue != null">
+        HLAYERS_VALUE = #{hlayersValue,jdbcType=DECIMAL},
+      </if>
+      <if test="costTreeId != null">
+        COST_TREE_ID = #{costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costId != null">
+        COST_ID = #{costId,jdbcType=DECIMAL},
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID = #{projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="schemeId != null">
+        SCHEME_ID = #{schemeId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.BpTrainParams">
+    update bp_train_params
+    set MODEL_TIME = #{modelTime,jdbcType=VARCHAR},
+      ALPHA = #{alpha,jdbcType=DECIMAL},
+      SPEED = #{speed,jdbcType=DECIMAL},
+      TRAIN_COUNT = #{trainCount,jdbcType=DECIMAL},
+      TRAIN_PRECISION = #{trainPrecision,jdbcType=DECIMAL},
+      FLAG = #{flag,jdbcType=DECIMAL},
+      HLAYERS_INDEX = #{hlayersIndex,jdbcType=DECIMAL},
+      HLAYERS_VALUE = #{hlayersValue,jdbcType=DECIMAL},
+      COST_TREE_ID = #{costTreeId,jdbcType=DECIMAL},
+      COST_ID = #{costId,jdbcType=DECIMAL},
+      PROJECT_ID = #{projectId,jdbcType=DECIMAL},
+      SCHEME_ID = #{schemeId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

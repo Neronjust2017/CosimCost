@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LlcProductMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LlcProduct">
+    <id column="PRODUCT_TREE_ID" jdbcType="DECIMAL" property="productTreeId" />
+    <id column="PRODUCT_ID" jdbcType="DECIMAL" property="productId" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="SUPER_PRODUCT_ID" jdbcType="DECIMAL" property="superProductId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PRODUCT_TREE_ID, PRODUCT_ID, PRODUCT_NAME, SUPER_PRODUCT_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LlcProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from llc_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.njust.model.LlcProductKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from llc_product
+    where PRODUCT_TREE_ID = #{productTreeId,jdbcType=DECIMAL}
+      and PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.njust.model.LlcProductKey">
+    delete from llc_product
+    where PRODUCT_TREE_ID = #{productTreeId,jdbcType=DECIMAL}
+      and PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.LlcProductExample">
+    delete from llc_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LlcProduct">
+    insert into llc_product (PRODUCT_TREE_ID, PRODUCT_ID, PRODUCT_NAME, 
+      SUPER_PRODUCT_ID)
+    values (#{productTreeId,jdbcType=DECIMAL}, #{productId,jdbcType=DECIMAL}, #{productName,jdbcType=VARCHAR}, 
+      #{superProductId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LlcProduct">
+    insert into llc_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productTreeId != null">
+        PRODUCT_TREE_ID,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="productName != null">
+        PRODUCT_NAME,
+      </if>
+      <if test="superProductId != null">
+        SUPER_PRODUCT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productTreeId != null">
+        #{productTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="superProductId != null">
+        #{superProductId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LlcProductExample" resultType="java.lang.Long">
+    select count(*) from llc_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update llc_product
+    <set>
+      <if test="record.productTreeId != null">
+        PRODUCT_TREE_ID = #{record.productTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productId != null">
+        PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productName != null">
+        PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.superProductId != null">
+        SUPER_PRODUCT_ID = #{record.superProductId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update llc_product
+    set PRODUCT_TREE_ID = #{record.productTreeId,jdbcType=DECIMAL},
+      PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      SUPER_PRODUCT_ID = #{record.superProductId,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.LlcProduct">
+    update llc_product
+    <set>
+      <if test="productName != null">
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="superProductId != null">
+        SUPER_PRODUCT_ID = #{superProductId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PRODUCT_TREE_ID = #{productTreeId,jdbcType=DECIMAL}
+      and PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.LlcProduct">
+    update llc_product
+    set PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      SUPER_PRODUCT_ID = #{superProductId,jdbcType=DECIMAL}
+    where PRODUCT_TREE_ID = #{productTreeId,jdbcType=DECIMAL}
+      and PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+  </update>
+</mapper>

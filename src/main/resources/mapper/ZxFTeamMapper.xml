@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.ZxFTeamMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.ZxFTeam">
+    <id column="F_TEAM_ID" jdbcType="DECIMAL" property="fTeamId" />
+    <result column="STA_ID" jdbcType="DECIMAL" property="staId" />
+    <result column="TEAM_LEVEL" jdbcType="DECIMAL" property="teamLevel" />
+    <result column="TEAM_EFFI" jdbcType="DECIMAL" property="teamEffi" />
+    <result column="TEAM_NUMBER" jdbcType="DECIMAL" property="teamNumber" />
+    <result column="VS_ID" jdbcType="DECIMAL" property="vsId" />
+    <result column="TEAM_NAME" jdbcType="VARCHAR" property="teamName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    F_TEAM_ID, STA_ID, TEAM_LEVEL, TEAM_EFFI, TEAM_NUMBER, VS_ID, TEAM_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.ZxFTeamExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zx_f_team
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zx_f_team
+    where F_TEAM_ID = #{fTeamId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from zx_f_team
+    where F_TEAM_ID = #{fTeamId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.ZxFTeamExample">
+    delete from zx_f_team
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.ZxFTeam">
+    insert into zx_f_team (F_TEAM_ID, STA_ID, TEAM_LEVEL, 
+      TEAM_EFFI, TEAM_NUMBER, VS_ID, 
+      TEAM_NAME)
+    values (#{fTeamId,jdbcType=DECIMAL}, #{staId,jdbcType=DECIMAL}, #{teamLevel,jdbcType=DECIMAL}, 
+      #{teamEffi,jdbcType=DECIMAL}, #{teamNumber,jdbcType=DECIMAL}, #{vsId,jdbcType=DECIMAL}, 
+      #{teamName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.ZxFTeam">
+    insert into zx_f_team
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fTeamId != null">
+        F_TEAM_ID,
+      </if>
+      <if test="staId != null">
+        STA_ID,
+      </if>
+      <if test="teamLevel != null">
+        TEAM_LEVEL,
+      </if>
+      <if test="teamEffi != null">
+        TEAM_EFFI,
+      </if>
+      <if test="teamNumber != null">
+        TEAM_NUMBER,
+      </if>
+      <if test="vsId != null">
+        VS_ID,
+      </if>
+      <if test="teamName != null">
+        TEAM_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fTeamId != null">
+        #{fTeamId,jdbcType=DECIMAL},
+      </if>
+      <if test="staId != null">
+        #{staId,jdbcType=DECIMAL},
+      </if>
+      <if test="teamLevel != null">
+        #{teamLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="teamEffi != null">
+        #{teamEffi,jdbcType=DECIMAL},
+      </if>
+      <if test="teamNumber != null">
+        #{teamNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="vsId != null">
+        #{vsId,jdbcType=DECIMAL},
+      </if>
+      <if test="teamName != null">
+        #{teamName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.ZxFTeamExample" resultType="java.lang.Long">
+    select count(*) from zx_f_team
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update zx_f_team
+    <set>
+      <if test="record.fTeamId != null">
+        F_TEAM_ID = #{record.fTeamId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.staId != null">
+        STA_ID = #{record.staId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.teamLevel != null">
+        TEAM_LEVEL = #{record.teamLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="record.teamEffi != null">
+        TEAM_EFFI = #{record.teamEffi,jdbcType=DECIMAL},
+      </if>
+      <if test="record.teamNumber != null">
+        TEAM_NUMBER = #{record.teamNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vsId != null">
+        VS_ID = #{record.vsId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.teamName != null">
+        TEAM_NAME = #{record.teamName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zx_f_team
+    set F_TEAM_ID = #{record.fTeamId,jdbcType=DECIMAL},
+      STA_ID = #{record.staId,jdbcType=DECIMAL},
+      TEAM_LEVEL = #{record.teamLevel,jdbcType=DECIMAL},
+      TEAM_EFFI = #{record.teamEffi,jdbcType=DECIMAL},
+      TEAM_NUMBER = #{record.teamNumber,jdbcType=DECIMAL},
+      VS_ID = #{record.vsId,jdbcType=DECIMAL},
+      TEAM_NAME = #{record.teamName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.ZxFTeam">
+    update zx_f_team
+    <set>
+      <if test="staId != null">
+        STA_ID = #{staId,jdbcType=DECIMAL},
+      </if>
+      <if test="teamLevel != null">
+        TEAM_LEVEL = #{teamLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="teamEffi != null">
+        TEAM_EFFI = #{teamEffi,jdbcType=DECIMAL},
+      </if>
+      <if test="teamNumber != null">
+        TEAM_NUMBER = #{teamNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="vsId != null">
+        VS_ID = #{vsId,jdbcType=DECIMAL},
+      </if>
+      <if test="teamName != null">
+        TEAM_NAME = #{teamName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where F_TEAM_ID = #{fTeamId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.ZxFTeam">
+    update zx_f_team
+    set STA_ID = #{staId,jdbcType=DECIMAL},
+      TEAM_LEVEL = #{teamLevel,jdbcType=DECIMAL},
+      TEAM_EFFI = #{teamEffi,jdbcType=DECIMAL},
+      TEAM_NUMBER = #{teamNumber,jdbcType=DECIMAL},
+      VS_ID = #{vsId,jdbcType=DECIMAL},
+      TEAM_NAME = #{teamName,jdbcType=VARCHAR}
+    where F_TEAM_ID = #{fTeamId,jdbcType=DECIMAL}
+  </update>
+</mapper>

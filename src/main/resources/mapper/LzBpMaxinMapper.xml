@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LzBpMaxinMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LzBpMaxin">
+    <result column="MODEL_TIME" jdbcType="VARCHAR" property="modelTime" />
+    <result column="MAXIN_INDEX" jdbcType="DECIMAL" property="maxinIndex" />
+    <result column="MAXIN_VALUE" jdbcType="DECIMAL" property="maxinValue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    MODEL_TIME, MAXIN_INDEX, MAXIN_VALUE
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LzBpMaxinExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lz_bp_maxin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.njust.model.LzBpMaxinExample">
+    delete from lz_bp_maxin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LzBpMaxin">
+    insert into lz_bp_maxin (MODEL_TIME, MAXIN_INDEX, MAXIN_VALUE
+      )
+    values (#{modelTime,jdbcType=VARCHAR}, #{maxinIndex,jdbcType=DECIMAL}, #{maxinValue,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LzBpMaxin">
+    insert into lz_bp_maxin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="modelTime != null">
+        MODEL_TIME,
+      </if>
+      <if test="maxinIndex != null">
+        MAXIN_INDEX,
+      </if>
+      <if test="maxinValue != null">
+        MAXIN_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="modelTime != null">
+        #{modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="maxinIndex != null">
+        #{maxinIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="maxinValue != null">
+        #{maxinValue,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LzBpMaxinExample" resultType="java.lang.Long">
+    select count(*) from lz_bp_maxin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update lz_bp_maxin
+    <set>
+      <if test="record.modelTime != null">
+        MODEL_TIME = #{record.modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxinIndex != null">
+        MAXIN_INDEX = #{record.maxinIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxinValue != null">
+        MAXIN_VALUE = #{record.maxinValue,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update lz_bp_maxin
+    set MODEL_TIME = #{record.modelTime,jdbcType=VARCHAR},
+      MAXIN_INDEX = #{record.maxinIndex,jdbcType=DECIMAL},
+      MAXIN_VALUE = #{record.maxinValue,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

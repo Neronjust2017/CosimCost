@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.JoinedTrainSamplesMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.JoinedTrainSamples">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="COST_ID" jdbcType="DECIMAL" property="costId" />
+    <result column="COST_TREE_ID" jdbcType="DECIMAL" property="costTreeId" />
+    <result column="SET_ID" jdbcType="DECIMAL" property="setId" />
+    <result column="SAMPLE_ID" jdbcType="DECIMAL" property="sampleId" />
+    <result column="TRAIN_METHOD" jdbcType="DECIMAL" property="trainMethod" />
+    <result column="TRAIN_SAMPLES_REMARK" jdbcType="VARCHAR" property="trainSamplesRemark" />
+    <result column="PROJECT_ID" jdbcType="DECIMAL" property="projectId" />
+    <result column="SCHEME_ID" jdbcType="DECIMAL" property="schemeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, COST_ID, COST_TREE_ID, SET_ID, SAMPLE_ID, TRAIN_METHOD, TRAIN_SAMPLES_REMARK, 
+    PROJECT_ID, SCHEME_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.JoinedTrainSamplesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from joined_train_samples
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from joined_train_samples
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from joined_train_samples
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.JoinedTrainSamplesExample">
+    delete from joined_train_samples
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.JoinedTrainSamples">
+    insert into joined_train_samples (ID, COST_ID, COST_TREE_ID, 
+      SET_ID, SAMPLE_ID, TRAIN_METHOD, 
+      TRAIN_SAMPLES_REMARK, PROJECT_ID, SCHEME_ID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{costId,jdbcType=DECIMAL}, #{costTreeId,jdbcType=DECIMAL}, 
+      #{setId,jdbcType=DECIMAL}, #{sampleId,jdbcType=DECIMAL}, #{trainMethod,jdbcType=DECIMAL}, 
+      #{trainSamplesRemark,jdbcType=VARCHAR}, #{projectId,jdbcType=DECIMAL}, #{schemeId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.JoinedTrainSamples">
+    insert into joined_train_samples
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="costId != null">
+        COST_ID,
+      </if>
+      <if test="costTreeId != null">
+        COST_TREE_ID,
+      </if>
+      <if test="setId != null">
+        SET_ID,
+      </if>
+      <if test="sampleId != null">
+        SAMPLE_ID,
+      </if>
+      <if test="trainMethod != null">
+        TRAIN_METHOD,
+      </if>
+      <if test="trainSamplesRemark != null">
+        TRAIN_SAMPLES_REMARK,
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID,
+      </if>
+      <if test="schemeId != null">
+        SCHEME_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="costId != null">
+        #{costId,jdbcType=DECIMAL},
+      </if>
+      <if test="costTreeId != null">
+        #{costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="setId != null">
+        #{setId,jdbcType=DECIMAL},
+      </if>
+      <if test="sampleId != null">
+        #{sampleId,jdbcType=DECIMAL},
+      </if>
+      <if test="trainMethod != null">
+        #{trainMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="trainSamplesRemark != null">
+        #{trainSamplesRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="schemeId != null">
+        #{schemeId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.JoinedTrainSamplesExample" resultType="java.lang.Long">
+    select count(*) from joined_train_samples
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update joined_train_samples
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costId != null">
+        COST_ID = #{record.costId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costTreeId != null">
+        COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.setId != null">
+        SET_ID = #{record.setId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sampleId != null">
+        SAMPLE_ID = #{record.sampleId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.trainMethod != null">
+        TRAIN_METHOD = #{record.trainMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.trainSamplesRemark != null">
+        TRAIN_SAMPLES_REMARK = #{record.trainSamplesRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.schemeId != null">
+        SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update joined_train_samples
+    set ID = #{record.id,jdbcType=DECIMAL},
+      COST_ID = #{record.costId,jdbcType=DECIMAL},
+      COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      SET_ID = #{record.setId,jdbcType=DECIMAL},
+      SAMPLE_ID = #{record.sampleId,jdbcType=DECIMAL},
+      TRAIN_METHOD = #{record.trainMethod,jdbcType=DECIMAL},
+      TRAIN_SAMPLES_REMARK = #{record.trainSamplesRemark,jdbcType=VARCHAR},
+      PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.JoinedTrainSamples">
+    update joined_train_samples
+    <set>
+      <if test="costId != null">
+        COST_ID = #{costId,jdbcType=DECIMAL},
+      </if>
+      <if test="costTreeId != null">
+        COST_TREE_ID = #{costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="setId != null">
+        SET_ID = #{setId,jdbcType=DECIMAL},
+      </if>
+      <if test="sampleId != null">
+        SAMPLE_ID = #{sampleId,jdbcType=DECIMAL},
+      </if>
+      <if test="trainMethod != null">
+        TRAIN_METHOD = #{trainMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="trainSamplesRemark != null">
+        TRAIN_SAMPLES_REMARK = #{trainSamplesRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID = #{projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="schemeId != null">
+        SCHEME_ID = #{schemeId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.JoinedTrainSamples">
+    update joined_train_samples
+    set COST_ID = #{costId,jdbcType=DECIMAL},
+      COST_TREE_ID = #{costTreeId,jdbcType=DECIMAL},
+      SET_ID = #{setId,jdbcType=DECIMAL},
+      SAMPLE_ID = #{sampleId,jdbcType=DECIMAL},
+      TRAIN_METHOD = #{trainMethod,jdbcType=DECIMAL},
+      TRAIN_SAMPLES_REMARK = #{trainSamplesRemark,jdbcType=VARCHAR},
+      PROJECT_ID = #{projectId,jdbcType=DECIMAL},
+      SCHEME_ID = #{schemeId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

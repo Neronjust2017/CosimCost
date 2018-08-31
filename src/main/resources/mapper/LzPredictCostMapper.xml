@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LzPredictCostMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LzPredictCost">
+    <result column="PROJECT_ID" jdbcType="DECIMAL" property="projectId" />
+    <result column="SCHEME_ID" jdbcType="DECIMAL" property="schemeId" />
+    <result column="COST_ID" jdbcType="DECIMAL" property="costId" />
+    <result column="COST_TREE_ID" jdbcType="DECIMAL" property="costTreeId" />
+    <result column="SET_ID" jdbcType="DECIMAL" property="setId" />
+    <result column="TRAIN_METHOD" jdbcType="DECIMAL" property="trainMethod" />
+    <result column="PREDICT_COST" jdbcType="DECIMAL" property="predictCost" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PROJECT_ID, SCHEME_ID, COST_ID, COST_TREE_ID, SET_ID, TRAIN_METHOD, PREDICT_COST
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LzPredictCostExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lz_predict_cost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.njust.model.LzPredictCostExample">
+    delete from lz_predict_cost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LzPredictCost">
+    insert into lz_predict_cost (PROJECT_ID, SCHEME_ID, COST_ID, 
+      COST_TREE_ID, SET_ID, TRAIN_METHOD, 
+      PREDICT_COST)
+    values (#{projectId,jdbcType=DECIMAL}, #{schemeId,jdbcType=DECIMAL}, #{costId,jdbcType=DECIMAL}, 
+      #{costTreeId,jdbcType=DECIMAL}, #{setId,jdbcType=DECIMAL}, #{trainMethod,jdbcType=DECIMAL}, 
+      #{predictCost,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LzPredictCost">
+    insert into lz_predict_cost
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        PROJECT_ID,
+      </if>
+      <if test="schemeId != null">
+        SCHEME_ID,
+      </if>
+      <if test="costId != null">
+        COST_ID,
+      </if>
+      <if test="costTreeId != null">
+        COST_TREE_ID,
+      </if>
+      <if test="setId != null">
+        SET_ID,
+      </if>
+      <if test="trainMethod != null">
+        TRAIN_METHOD,
+      </if>
+      <if test="predictCost != null">
+        PREDICT_COST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="schemeId != null">
+        #{schemeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costId != null">
+        #{costId,jdbcType=DECIMAL},
+      </if>
+      <if test="costTreeId != null">
+        #{costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="setId != null">
+        #{setId,jdbcType=DECIMAL},
+      </if>
+      <if test="trainMethod != null">
+        #{trainMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="predictCost != null">
+        #{predictCost,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LzPredictCostExample" resultType="java.lang.Long">
+    select count(*) from lz_predict_cost
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update lz_predict_cost
+    <set>
+      <if test="record.projectId != null">
+        PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.schemeId != null">
+        SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costId != null">
+        COST_ID = #{record.costId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costTreeId != null">
+        COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.setId != null">
+        SET_ID = #{record.setId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.trainMethod != null">
+        TRAIN_METHOD = #{record.trainMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.predictCost != null">
+        PREDICT_COST = #{record.predictCost,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update lz_predict_cost
+    set PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL},
+      COST_ID = #{record.costId,jdbcType=DECIMAL},
+      COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      SET_ID = #{record.setId,jdbcType=DECIMAL},
+      TRAIN_METHOD = #{record.trainMethod,jdbcType=DECIMAL},
+      PREDICT_COST = #{record.predictCost,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.ZxStationMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.ZxStation">
+    <id column="STA_ID" jdbcType="DECIMAL" property="staId" />
+    <result column="STA_NAME" jdbcType="VARCHAR" property="staName" />
+    <result column="H_STA_ID" jdbcType="DECIMAL" property="hStaId" />
+    <result column="H_TIME" jdbcType="DECIMAL" property="hTime" />
+    <result column="L_TIME" jdbcType="DECIMAL" property="lTime" />
+    <result column="TYPE" jdbcType="DECIMAL" property="type" />
+    <result column="PRO_ID" jdbcType="DECIMAL" property="proId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    STA_ID, STA_NAME, H_STA_ID, H_TIME, L_TIME, TYPE, PRO_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.ZxStationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zx_station
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zx_station
+    where STA_ID = #{staId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from zx_station
+    where STA_ID = #{staId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.ZxStationExample">
+    delete from zx_station
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.ZxStation">
+    insert into zx_station (STA_ID, STA_NAME, H_STA_ID, 
+      H_TIME, L_TIME, TYPE, 
+      PRO_ID)
+    values (#{staId,jdbcType=DECIMAL}, #{staName,jdbcType=VARCHAR}, #{hStaId,jdbcType=DECIMAL}, 
+      #{hTime,jdbcType=DECIMAL}, #{lTime,jdbcType=DECIMAL}, #{type,jdbcType=DECIMAL}, 
+      #{proId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.ZxStation">
+    insert into zx_station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="staId != null">
+        STA_ID,
+      </if>
+      <if test="staName != null">
+        STA_NAME,
+      </if>
+      <if test="hStaId != null">
+        H_STA_ID,
+      </if>
+      <if test="hTime != null">
+        H_TIME,
+      </if>
+      <if test="lTime != null">
+        L_TIME,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="proId != null">
+        PRO_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="staId != null">
+        #{staId,jdbcType=DECIMAL},
+      </if>
+      <if test="staName != null">
+        #{staName,jdbcType=VARCHAR},
+      </if>
+      <if test="hStaId != null">
+        #{hStaId,jdbcType=DECIMAL},
+      </if>
+      <if test="hTime != null">
+        #{hTime,jdbcType=DECIMAL},
+      </if>
+      <if test="lTime != null">
+        #{lTime,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.ZxStationExample" resultType="java.lang.Long">
+    select count(*) from zx_station
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update zx_station
+    <set>
+      <if test="record.staId != null">
+        STA_ID = #{record.staId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.staName != null">
+        STA_NAME = #{record.staName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hStaId != null">
+        H_STA_ID = #{record.hStaId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hTime != null">
+        H_TIME = #{record.hTime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lTime != null">
+        L_TIME = #{record.lTime,jdbcType=DECIMAL},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proId != null">
+        PRO_ID = #{record.proId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zx_station
+    set STA_ID = #{record.staId,jdbcType=DECIMAL},
+      STA_NAME = #{record.staName,jdbcType=VARCHAR},
+      H_STA_ID = #{record.hStaId,jdbcType=DECIMAL},
+      H_TIME = #{record.hTime,jdbcType=DECIMAL},
+      L_TIME = #{record.lTime,jdbcType=DECIMAL},
+      TYPE = #{record.type,jdbcType=DECIMAL},
+      PRO_ID = #{record.proId,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.ZxStation">
+    update zx_station
+    <set>
+      <if test="staName != null">
+        STA_NAME = #{staName,jdbcType=VARCHAR},
+      </if>
+      <if test="hStaId != null">
+        H_STA_ID = #{hStaId,jdbcType=DECIMAL},
+      </if>
+      <if test="hTime != null">
+        H_TIME = #{hTime,jdbcType=DECIMAL},
+      </if>
+      <if test="lTime != null">
+        L_TIME = #{lTime,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="proId != null">
+        PRO_ID = #{proId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where STA_ID = #{staId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.ZxStation">
+    update zx_station
+    set STA_NAME = #{staName,jdbcType=VARCHAR},
+      H_STA_ID = #{hStaId,jdbcType=DECIMAL},
+      H_TIME = #{hTime,jdbcType=DECIMAL},
+      L_TIME = #{lTime,jdbcType=DECIMAL},
+      TYPE = #{type,jdbcType=DECIMAL},
+      PRO_ID = #{proId,jdbcType=DECIMAL}
+    where STA_ID = #{staId,jdbcType=DECIMAL}
+  </update>
+</mapper>

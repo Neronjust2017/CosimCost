@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.SvrTrainParamsMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.SvrTrainParams">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="MODEL_TIME" jdbcType="VARCHAR" property="modelTime" />
+    <result column="PROJECT_ID" jdbcType="DECIMAL" property="projectId" />
+    <result column="SCHEME_ID" jdbcType="DECIMAL" property="schemeId" />
+    <result column="COST_TREE_ID" jdbcType="DECIMAL" property="costTreeId" />
+    <result column="COST_ID" jdbcType="DECIMAL" property="costId" />
+    <result column="SVR_L" jdbcType="DECIMAL" property="svrL" />
+    <result column="SVR_C" jdbcType="DECIMAL" property="svrC" />
+    <result column="SVR_GAMMA" jdbcType="DECIMAL" property="svrGamma" />
+    <result column="SVR_EPS" jdbcType="DECIMAL" property="svrEps" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, MODEL_TIME, PROJECT_ID, SCHEME_ID, COST_TREE_ID, COST_ID, SVR_L, SVR_C, SVR_GAMMA, 
+    SVR_EPS
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.SvrTrainParamsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from svr_train_params
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from svr_train_params
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from svr_train_params
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.SvrTrainParamsExample">
+    delete from svr_train_params
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.SvrTrainParams">
+    insert into svr_train_params (ID, MODEL_TIME, PROJECT_ID, 
+      SCHEME_ID, COST_TREE_ID, COST_ID, 
+      SVR_L, SVR_C, SVR_GAMMA, 
+      SVR_EPS)
+    values (#{id,jdbcType=DECIMAL}, #{modelTime,jdbcType=VARCHAR}, #{projectId,jdbcType=DECIMAL}, 
+      #{schemeId,jdbcType=DECIMAL}, #{costTreeId,jdbcType=DECIMAL}, #{costId,jdbcType=DECIMAL}, 
+      #{svrL,jdbcType=DECIMAL}, #{svrC,jdbcType=DECIMAL}, #{svrGamma,jdbcType=DECIMAL}, 
+      #{svrEps,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.SvrTrainParams">
+    insert into svr_train_params
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="modelTime != null">
+        MODEL_TIME,
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID,
+      </if>
+      <if test="schemeId != null">
+        SCHEME_ID,
+      </if>
+      <if test="costTreeId != null">
+        COST_TREE_ID,
+      </if>
+      <if test="costId != null">
+        COST_ID,
+      </if>
+      <if test="svrL != null">
+        SVR_L,
+      </if>
+      <if test="svrC != null">
+        SVR_C,
+      </if>
+      <if test="svrGamma != null">
+        SVR_GAMMA,
+      </if>
+      <if test="svrEps != null">
+        SVR_EPS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="modelTime != null">
+        #{modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="schemeId != null">
+        #{schemeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costTreeId != null">
+        #{costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costId != null">
+        #{costId,jdbcType=DECIMAL},
+      </if>
+      <if test="svrL != null">
+        #{svrL,jdbcType=DECIMAL},
+      </if>
+      <if test="svrC != null">
+        #{svrC,jdbcType=DECIMAL},
+      </if>
+      <if test="svrGamma != null">
+        #{svrGamma,jdbcType=DECIMAL},
+      </if>
+      <if test="svrEps != null">
+        #{svrEps,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.SvrTrainParamsExample" resultType="java.lang.Long">
+    select count(*) from svr_train_params
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update svr_train_params
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.modelTime != null">
+        MODEL_TIME = #{record.modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.schemeId != null">
+        SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costTreeId != null">
+        COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costId != null">
+        COST_ID = #{record.costId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.svrL != null">
+        SVR_L = #{record.svrL,jdbcType=DECIMAL},
+      </if>
+      <if test="record.svrC != null">
+        SVR_C = #{record.svrC,jdbcType=DECIMAL},
+      </if>
+      <if test="record.svrGamma != null">
+        SVR_GAMMA = #{record.svrGamma,jdbcType=DECIMAL},
+      </if>
+      <if test="record.svrEps != null">
+        SVR_EPS = #{record.svrEps,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update svr_train_params
+    set ID = #{record.id,jdbcType=DECIMAL},
+      MODEL_TIME = #{record.modelTime,jdbcType=VARCHAR},
+      PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL},
+      COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      COST_ID = #{record.costId,jdbcType=DECIMAL},
+      SVR_L = #{record.svrL,jdbcType=DECIMAL},
+      SVR_C = #{record.svrC,jdbcType=DECIMAL},
+      SVR_GAMMA = #{record.svrGamma,jdbcType=DECIMAL},
+      SVR_EPS = #{record.svrEps,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.SvrTrainParams">
+    update svr_train_params
+    <set>
+      <if test="modelTime != null">
+        MODEL_TIME = #{modelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID = #{projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="schemeId != null">
+        SCHEME_ID = #{schemeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costTreeId != null">
+        COST_TREE_ID = #{costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costId != null">
+        COST_ID = #{costId,jdbcType=DECIMAL},
+      </if>
+      <if test="svrL != null">
+        SVR_L = #{svrL,jdbcType=DECIMAL},
+      </if>
+      <if test="svrC != null">
+        SVR_C = #{svrC,jdbcType=DECIMAL},
+      </if>
+      <if test="svrGamma != null">
+        SVR_GAMMA = #{svrGamma,jdbcType=DECIMAL},
+      </if>
+      <if test="svrEps != null">
+        SVR_EPS = #{svrEps,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.SvrTrainParams">
+    update svr_train_params
+    set MODEL_TIME = #{modelTime,jdbcType=VARCHAR},
+      PROJECT_ID = #{projectId,jdbcType=DECIMAL},
+      SCHEME_ID = #{schemeId,jdbcType=DECIMAL},
+      COST_TREE_ID = #{costTreeId,jdbcType=DECIMAL},
+      COST_ID = #{costId,jdbcType=DECIMAL},
+      SVR_L = #{svrL,jdbcType=DECIMAL},
+      SVR_C = #{svrC,jdbcType=DECIMAL},
+      SVR_GAMMA = #{svrGamma,jdbcType=DECIMAL},
+      SVR_EPS = #{svrEps,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

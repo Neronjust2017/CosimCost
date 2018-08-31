@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LzOptResultSpareMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LzOptResultSpare">
+    <result column="OPT_ID" jdbcType="DECIMAL" property="optId" />
+    <result column="STA_ID" jdbcType="DECIMAL" property="staId" />
+    <result column="SPARE_ID" jdbcType="DECIMAL" property="spareId" />
+    <result column="SPARE_QUANTITY" jdbcType="DECIMAL" property="spareQuantity" />
+    <result column="SPARE_COST" jdbcType="DECIMAL" property="spareCost" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    OPT_ID, STA_ID, SPARE_ID, SPARE_QUANTITY, SPARE_COST
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LzOptResultSpareExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lz_opt_result_spare
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.njust.model.LzOptResultSpareExample">
+    delete from lz_opt_result_spare
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LzOptResultSpare">
+    insert into lz_opt_result_spare (OPT_ID, STA_ID, SPARE_ID, 
+      SPARE_QUANTITY, SPARE_COST)
+    values (#{optId,jdbcType=DECIMAL}, #{staId,jdbcType=DECIMAL}, #{spareId,jdbcType=DECIMAL}, 
+      #{spareQuantity,jdbcType=DECIMAL}, #{spareCost,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LzOptResultSpare">
+    insert into lz_opt_result_spare
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="optId != null">
+        OPT_ID,
+      </if>
+      <if test="staId != null">
+        STA_ID,
+      </if>
+      <if test="spareId != null">
+        SPARE_ID,
+      </if>
+      <if test="spareQuantity != null">
+        SPARE_QUANTITY,
+      </if>
+      <if test="spareCost != null">
+        SPARE_COST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="optId != null">
+        #{optId,jdbcType=DECIMAL},
+      </if>
+      <if test="staId != null">
+        #{staId,jdbcType=DECIMAL},
+      </if>
+      <if test="spareId != null">
+        #{spareId,jdbcType=DECIMAL},
+      </if>
+      <if test="spareQuantity != null">
+        #{spareQuantity,jdbcType=DECIMAL},
+      </if>
+      <if test="spareCost != null">
+        #{spareCost,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LzOptResultSpareExample" resultType="java.lang.Long">
+    select count(*) from lz_opt_result_spare
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update lz_opt_result_spare
+    <set>
+      <if test="record.optId != null">
+        OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.staId != null">
+        STA_ID = #{record.staId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.spareId != null">
+        SPARE_ID = #{record.spareId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.spareQuantity != null">
+        SPARE_QUANTITY = #{record.spareQuantity,jdbcType=DECIMAL},
+      </if>
+      <if test="record.spareCost != null">
+        SPARE_COST = #{record.spareCost,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update lz_opt_result_spare
+    set OPT_ID = #{record.optId,jdbcType=DECIMAL},
+      STA_ID = #{record.staId,jdbcType=DECIMAL},
+      SPARE_ID = #{record.spareId,jdbcType=DECIMAL},
+      SPARE_QUANTITY = #{record.spareQuantity,jdbcType=DECIMAL},
+      SPARE_COST = #{record.spareCost,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

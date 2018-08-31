@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.ZxProjectMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.ZxProject">
+    <id column="PRO_ID" jdbcType="DECIMAL" property="proId" />
+    <result column="PRO_NAME" jdbcType="VARCHAR" property="proName" />
+    <result column="PRO_CTIME" jdbcType="VARCHAR" property="proCtime" />
+    <result column="PRO_REMARK" jdbcType="VARCHAR" property="proRemark" />
+    <result column="PRO_STATE" jdbcType="DECIMAL" property="proState" />
+    <result column="PRO_SIMULATED" jdbcType="DECIMAL" property="proSimulated" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PRO_ID, PRO_NAME, PRO_CTIME, PRO_REMARK, PRO_STATE, PRO_SIMULATED
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.ZxProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zx_project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zx_project
+    where PRO_ID = #{proId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from zx_project
+    where PRO_ID = #{proId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.njust.model.ZxProjectExample">
+    delete from zx_project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.ZxProject">
+    insert into zx_project (PRO_ID, PRO_NAME, PRO_CTIME, 
+      PRO_REMARK, PRO_STATE, PRO_SIMULATED
+      )
+    values (#{proId,jdbcType=DECIMAL}, #{proName,jdbcType=VARCHAR}, #{proCtime,jdbcType=VARCHAR}, 
+      #{proRemark,jdbcType=VARCHAR}, #{proState,jdbcType=DECIMAL}, #{proSimulated,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.ZxProject">
+    insert into zx_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="proId != null">
+        PRO_ID,
+      </if>
+      <if test="proName != null">
+        PRO_NAME,
+      </if>
+      <if test="proCtime != null">
+        PRO_CTIME,
+      </if>
+      <if test="proRemark != null">
+        PRO_REMARK,
+      </if>
+      <if test="proState != null">
+        PRO_STATE,
+      </if>
+      <if test="proSimulated != null">
+        PRO_SIMULATED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="proId != null">
+        #{proId,jdbcType=DECIMAL},
+      </if>
+      <if test="proName != null">
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proCtime != null">
+        #{proCtime,jdbcType=VARCHAR},
+      </if>
+      <if test="proRemark != null">
+        #{proRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="proState != null">
+        #{proState,jdbcType=DECIMAL},
+      </if>
+      <if test="proSimulated != null">
+        #{proSimulated,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.ZxProjectExample" resultType="java.lang.Long">
+    select count(*) from zx_project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update zx_project
+    <set>
+      <if test="record.proId != null">
+        PRO_ID = #{record.proId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proName != null">
+        PRO_NAME = #{record.proName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proCtime != null">
+        PRO_CTIME = #{record.proCtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proRemark != null">
+        PRO_REMARK = #{record.proRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proState != null">
+        PRO_STATE = #{record.proState,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proSimulated != null">
+        PRO_SIMULATED = #{record.proSimulated,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zx_project
+    set PRO_ID = #{record.proId,jdbcType=DECIMAL},
+      PRO_NAME = #{record.proName,jdbcType=VARCHAR},
+      PRO_CTIME = #{record.proCtime,jdbcType=VARCHAR},
+      PRO_REMARK = #{record.proRemark,jdbcType=VARCHAR},
+      PRO_STATE = #{record.proState,jdbcType=DECIMAL},
+      PRO_SIMULATED = #{record.proSimulated,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.njust.model.ZxProject">
+    update zx_project
+    <set>
+      <if test="proName != null">
+        PRO_NAME = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proCtime != null">
+        PRO_CTIME = #{proCtime,jdbcType=VARCHAR},
+      </if>
+      <if test="proRemark != null">
+        PRO_REMARK = #{proRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="proState != null">
+        PRO_STATE = #{proState,jdbcType=DECIMAL},
+      </if>
+      <if test="proSimulated != null">
+        PRO_SIMULATED = #{proSimulated,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PRO_ID = #{proId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.njust.model.ZxProject">
+    update zx_project
+    set PRO_NAME = #{proName,jdbcType=VARCHAR},
+      PRO_CTIME = #{proCtime,jdbcType=VARCHAR},
+      PRO_REMARK = #{proRemark,jdbcType=VARCHAR},
+      PRO_STATE = #{proState,jdbcType=DECIMAL},
+      PRO_SIMULATED = #{proSimulated,jdbcType=DECIMAL}
+    where PRO_ID = #{proId,jdbcType=DECIMAL}
+  </update>
+</mapper>

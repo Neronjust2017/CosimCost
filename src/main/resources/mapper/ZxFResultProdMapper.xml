@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.ZxFResultProdMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.ZxFResultProd">
+    <result column="VS_ID" jdbcType="DECIMAL" property="vsId" />
+    <result column="STA_ID" jdbcType="DECIMAL" property="staId" />
+    <result column="ITEM_ID" jdbcType="DECIMAL" property="itemId" />
+    <result column="PERFECTNESS_RATIO" jdbcType="DECIMAL" property="perfectnessRatio" />
+    <result column="ORG_PROD_NUM" jdbcType="DECIMAL" property="orgProdNum" />
+    <result column="REMAIN_PROD_NUM" jdbcType="DECIMAL" property="remainProdNum" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    VS_ID, STA_ID, ITEM_ID, PERFECTNESS_RATIO, ORG_PROD_NUM, REMAIN_PROD_NUM
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.ZxFResultProdExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zx_f_result_prod
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.njust.model.ZxFResultProdExample">
+    delete from zx_f_result_prod
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.ZxFResultProd">
+    insert into zx_f_result_prod (VS_ID, STA_ID, ITEM_ID, 
+      PERFECTNESS_RATIO, ORG_PROD_NUM, REMAIN_PROD_NUM
+      )
+    values (#{vsId,jdbcType=DECIMAL}, #{staId,jdbcType=DECIMAL}, #{itemId,jdbcType=DECIMAL}, 
+      #{perfectnessRatio,jdbcType=DECIMAL}, #{orgProdNum,jdbcType=DECIMAL}, #{remainProdNum,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.ZxFResultProd">
+    insert into zx_f_result_prod
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vsId != null">
+        VS_ID,
+      </if>
+      <if test="staId != null">
+        STA_ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="perfectnessRatio != null">
+        PERFECTNESS_RATIO,
+      </if>
+      <if test="orgProdNum != null">
+        ORG_PROD_NUM,
+      </if>
+      <if test="remainProdNum != null">
+        REMAIN_PROD_NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vsId != null">
+        #{vsId,jdbcType=DECIMAL},
+      </if>
+      <if test="staId != null">
+        #{staId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="perfectnessRatio != null">
+        #{perfectnessRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="orgProdNum != null">
+        #{orgProdNum,jdbcType=DECIMAL},
+      </if>
+      <if test="remainProdNum != null">
+        #{remainProdNum,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.ZxFResultProdExample" resultType="java.lang.Long">
+    select count(*) from zx_f_result_prod
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update zx_f_result_prod
+    <set>
+      <if test="record.vsId != null">
+        VS_ID = #{record.vsId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.staId != null">
+        STA_ID = #{record.staId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemId != null">
+        ITEM_ID = #{record.itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.perfectnessRatio != null">
+        PERFECTNESS_RATIO = #{record.perfectnessRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orgProdNum != null">
+        ORG_PROD_NUM = #{record.orgProdNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remainProdNum != null">
+        REMAIN_PROD_NUM = #{record.remainProdNum,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update zx_f_result_prod
+    set VS_ID = #{record.vsId,jdbcType=DECIMAL},
+      STA_ID = #{record.staId,jdbcType=DECIMAL},
+      ITEM_ID = #{record.itemId,jdbcType=DECIMAL},
+      PERFECTNESS_RATIO = #{record.perfectnessRatio,jdbcType=DECIMAL},
+      ORG_PROD_NUM = #{record.orgProdNum,jdbcType=DECIMAL},
+      REMAIN_PROD_NUM = #{record.remainProdNum,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
